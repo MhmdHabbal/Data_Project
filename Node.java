@@ -1,7 +1,7 @@
 package Data_Project;
 
 public class Node {
-
+    
     String data;
     Node next;
 

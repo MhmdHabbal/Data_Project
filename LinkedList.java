@@ -3,18 +3,19 @@ package Data_Project;
 public class LinkedList {
     
     private Node first;
+    private int size;
 
     LinkedList() {
         first = null;
+        size = 0;
     }
 
     public boolean isEmpty() {
-
         return first == null;
     }
 
     public void insertAtBack(String d) {
-        
+
         Node node = new Node(d);
 
         if(isEmpty()) {
@@ -30,6 +31,8 @@ public class LinkedList {
 
             current.next = node;
         }
+
+        size++;
     }
 
     public void insertAtFront(String d) {
@@ -44,18 +47,35 @@ public class LinkedList {
             node.next = first;
             first = node;
         }
+
+        size++;
+    }
+
+    public String removeFromFront() {
+
+        if(!isEmpty()) {
+
+            String d = first.data;
+            first = first.next;
+            return d;
+
+        }
+
+        size--;
+
+        return null;
     }
 
     public void removeFromBack() {
 
         if(isEmpty()) {
-            System.out.println("The list is empty");
+            System.out.println("The list is Empty");
         }
 
         else {
 
             Node current = first, prev = first;
-            
+
             while(current.next != null) {
                 prev = current;
                 current = current.next;
@@ -63,40 +83,34 @@ public class LinkedList {
 
             prev.next = current.next;
         }
+
+        size--;
     }
 
-    public void removeFromFront() {
+    public Node removeSpecificNode(int d) {
 
-        if(isEmpty()) {
-            System.out.println("The list is empty");
-        }
-
-        else {
-            first = first.next;
-        }
-    }
-
-    public void insertAtPosition(int pos, String d) {
-
-        Node node = new Node(d);
         Node current = first, prev = first;
 
-        if(pos == 0) {
-            node.next = first;
-            first = node;
+        if(isEmpty()) {
+            return null;
+        }
+
+        if(d == 0) {
+            first = first.next;
         }
 
         else {
 
-            for(int i = 0; i < pos; i++) {
-            
+            for(int i = 0; i < d; i++) {
                 prev = current;
                 current = current.next;
             }
     
-            prev.next = node;
-            node.next = current;
+            prev.next = current.next;
+
         }
+
+        return current;
 
     }
 
@@ -104,14 +118,14 @@ public class LinkedList {
 
         Node current = first;
 
-        System.out.print("[");
-        while(current.next != null) {
-            
-            System.out.print(current.data + ", ");
-
+        while(current != null) {
+            System.out.println(current.data);
+            System.out.println();
             current = current.next;
         }
+    }
 
-        System.out.println(current.data + "]");
+    public int getSize() {
+        return size;
     }
 }
