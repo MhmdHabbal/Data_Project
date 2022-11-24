@@ -12,8 +12,8 @@ public class PizzaDelivery extends Drink {
     static Node drinksNode;
     boolean drinkOrder = false;
 
-    static LinkedList PizzaList = new LinkedList();
-    static LinkedList DrinksList = new LinkedList();
+    static CustomerList PizzaList = new CustomerList();
+    static CustomerList DrinksList = new CustomerList();
 
     CustomerList customerList = new CustomerList();
     CustomerInfo customerInfo = new CustomerInfo();
@@ -33,24 +33,24 @@ public class PizzaDelivery extends Drink {
         Pizza p7 = new Pizza("Buffalo Pizza", 45);
         Pizza p8 = new Pizza("Supreme Pizza", 50);
 
-        PizzaList.insertAtBack("->" + p1);
-        PizzaList.insertAtBack("-> " + p2);
-        PizzaList.insertAtBack("-> " + p3);
-        PizzaList.insertAtBack("-> " + p4);
-        PizzaList.insertAtBack("-> " + p5);
-        PizzaList.insertAtBack("-> " + p6);
-        PizzaList.insertAtBack("-> " + p7);
-        PizzaList.insertAtBack("-> " + p8);
+        PizzaList.insertAtBack("1. " + p1);
+        PizzaList.insertAtBack("2. " + p2);
+        PizzaList.insertAtBack("3. " + p3);
+        PizzaList.insertAtBack("4. " + p4);
+        PizzaList.insertAtBack("5. " + p5);
+        PizzaList.insertAtBack("6. " + p6);
+        PizzaList.insertAtBack("7. " + p7);
+        PizzaList.insertAtBack("8. " + p8);
 
         Drink d1 = new Drink("Pepsi", 2);
         Drink d2 = new Drink("Coca Cola", 2);
         Drink d3 = new Drink("Mirinda" , 2);
         Drink d4 = new Drink("7 Up", 2);
 
-        DrinksList.insertAtBack("-> " + d1);
-        DrinksList.insertAtBack("-> " + d2);
-        DrinksList.insertAtBack("-> " + d3);
-        DrinksList.insertAtBack("-> " + d4);
+        DrinksList.insertAtBack("1. " + d1);
+        DrinksList.insertAtBack("2. " + d2);
+        DrinksList.insertAtBack("3. " + d3);
+        DrinksList.insertAtBack("4. " + d4);
 
     }
 
@@ -130,6 +130,7 @@ public class PizzaDelivery extends Drink {
                     String another = input.next();
     
                     if(!another.equals("no") && !another.equals("yes")) {
+                        System.out.println();
     
                         do {
     
@@ -150,10 +151,12 @@ public class PizzaDelivery extends Drink {
                     }
     
                     else if(another.equals("no")) {
+                        System.out.println();
                         System.out.println("Thank you for ordering from our delivery app.");
                     }
     
                     else if(another.equals("yes")) {
+                        System.out.println();
                         Welcome();
                     }
 
