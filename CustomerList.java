@@ -1,9 +1,11 @@
 package Data_Project;
 
-public class CustomerList {
+public class CustomerList<T> {
     
-    private Node first;
-    private int size;
+    public Node<T> first;
+    public int size;
+
+    private int i = 0, i_total = 0, j = 0;
 
     CustomerList() {
         first = null;
@@ -14,16 +16,16 @@ public class CustomerList {
         return first == null;
     }
 
-    public void insertAtBack(String d) {
+    public void insertAtBack(T d) {
 
-        Node node = new Node(d);
+        Node<T> node = new Node<>(d);
 
         if(isEmpty()) {
             first = node;
         }
 
         else {
-            Node current = first;
+            Node<T> current = first;
 
             while(current.next != null) {
                 current = current.next;
@@ -35,11 +37,11 @@ public class CustomerList {
         size++;
     }
 
-    public String removeFromFront() {
+    public T removeFromFront() {
 
         if(!isEmpty()) {
 
-            String d = first.data;
+            T d = first.data;
             first = first.next;
             return d;
 
@@ -50,39 +52,110 @@ public class CustomerList {
         return null;
     }
 
-    public Node removeSpecificNode(int d) {
+    public Node<T> removeSpecificNode(T d) {
 
-        Node current = first, prev = first;
-
+        Node<T> current = first, prev = first;
+        
         if(isEmpty()) {
             return null;
         }
 
-        if(d == 0) {
+        if(current != null && current.data.equals(d)) {
+
             first = first.next;
+
+            return current;
         }
 
-        else {
+        while(current != null && !current.data.equals(d)) {
 
-            for(int i = 0; i < d; i++) {
-                prev = current;
-                current = current.next;
+            i++;
+            prev = current;
+            current = current.next;
+
+            if(i != 0) {
+                i_total++;
             }
-    
-            prev.next = current.next;
-
         }
+
+        if(current == null) {
+            return null;
+        }
+
+        prev.next = current.next;
+
+        j = i_total;
 
         return current;
 
     }
 
-    public void display() {
+    public double removeSpecific_PriceNode(CustomerList<Double> price) {
 
-        Node current = first;
+        Node<Double> current = price.first;
+        Node<Double> prev = price.first;
+        
+        if(price.isEmpty()) {
+            return -1;
+        }
+
+        if(j == 0) {
+            price.first = price.first.next;
+
+            return current.data;
+        }
+
+        else {
+
+            for(int i = 0; i < j; i++) {
+
+                prev = current;
+                current = current.next;
+
+            }
+
+            prev.next = current.next;
+        }
+
+        i = 0;
+        i_total = 0;
+        j = 0;
+
+        return current.data;
+    }
+
+    public boolean search(String d) {
+
+        Node<T> current = first;
 
         while(current != null) {
-            System.out.println(current.data);
+            
+            if(current.data.equals(d)) {
+                return true;
+            }
+
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    public void display(CustomerList<Double> drinks_Price) {
+
+        Node<T> current = first;
+        Node<Double> currentList = drinks_Price.first;
+
+        while(current != null) {
+
+            System.out.println(" " + current.data);
+
+            if(currentList != null) {
+
+                System.out.println("Price: $" + currentList.data);
+
+                currentList = currentList.next;
+            }
+            
             System.out.println();
             current = current.next;
         }
@@ -92,12 +165,12 @@ public class CustomerList {
         return size;
     }
 
-    public void enqueue(String customer) {
+    public void enqueue(T customer) {
 
         insertAtBack(customer);
     }
 
-    public String dequeue() {
+    public T dequeue() {
         
         return removeFromFront();
     }

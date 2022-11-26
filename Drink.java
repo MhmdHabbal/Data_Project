@@ -2,8 +2,8 @@ package Data_Project;
 
 public class Drink extends Pizza {
     
-    String drinkType;
-    double price;
+    private String drinkType;
+    private double price;
     static int count;
 
     Drink() {
@@ -13,12 +13,15 @@ public class Drink extends Pizza {
         count = 0;
     }
 
-    Drink(String drinkType, double price) {
+    Drink(String drinkType) {
 
         this.drinkType = drinkType;
-        this.price = price;
         count++;
 
+    }
+
+    Drink(double price) {
+        this.price = price;
     }
 
     public String getDrinkType() {

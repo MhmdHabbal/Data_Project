@@ -1,16 +1,15 @@
 package Data_Project;
 
-public class Node {
+public class Node<T> {
     
-    String data;
-    Node next;
+    T data;
+    Node<T> next;
 
     Node() {
-        data = " ";
         next = null;
     }
 
-    Node(String data) {
+    Node(T data) {
         this.data = data;
     }
 }
