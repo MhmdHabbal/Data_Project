@@ -13,6 +13,8 @@ public class PizzaDelivery extends Drink {
     static double Pizza_Price;
     static double Drinks_Price;
     static boolean drinkOrder = false;
+    static boolean anotherOrder = false;
+    static boolean flag = false;
 
     static String[] arrayPizza = new String[8];
     static double[] arrayPizza_Price = new double[8];
@@ -115,138 +117,55 @@ public class PizzaDelivery extends Drink {
     public void Welcome() {
 
         if(!PizzaIsEmpty()) {
-            System.out.println("Welcome to our pizza delivery app!");
 
-            System.out.println("would you like to order now?");
-            String answer = input.next();
-        
-            boolean flag = false;
-
-            while(!answer.equals("yes") && !answer.equals("no")) {
-
-                System.out.println();
-                System.out.println("Please type \"yes\" if you want to order now.\nAnd \"no\" if not.");
-                answer = input.next();
+            if(!anotherOrder) {
+                System.out.println("Welcome to our pizza delivery app!\n");
             }
 
-            if(answer.equals("no")) {
+            System.out.println("Here is the menu:\n");
+            System.out.println("Pizza:");
+            System.out.println("------");
+            PizzaList.display(PizzaList_Price);
+            System.out.println();
 
-                System.out.println("Thank you for visiting our delivery app! Have a look on the menu.");
-                System.out.println();
-                System.out.println("Pizza:");
+            if(DrinksIsEmpty()) {
+                System.out.println("We ran out of drinks!\n");
+            } 
+
+            else if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
+
+                System.out.println("Drinks:");
                 System.out.println("------");
-                PizzaList.display(PizzaList_Price);
+                DrinksList.display(DrinksList_Price);
                 System.out.println();
 
-                if(DrinksIsEmpty()) {
-                    System.out.println("We ran out of drinks!");
-                } 
+            }
 
-                else if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
+            String order;
 
-                    System.out.println("Drinks:");
-                    System.out.println("------");
-                    DrinksList.display(DrinksList_Price);
-                    System.out.println();
-
-                }
-
-                String order;
+            if(!anotherOrder) {
 
                 do {
 
                     System.out.println();
                     System.out.println("Whenever you are ready to order just type the word \"order\".\nAnd if you want to exit just type the word \"exit\".");
                     order = input.next();
-
+    
                     if(order.equals("order")) {
                         flag = true;
                         break;
                     }
-
+    
                     if(order.equals("exit")) {
                         flag = false;
                         break;
                     }
-
-                } while(!answer.equals("yes"));
-
-
-
-                if(flag == true || order.equals("order")) {
-
-                    order();
-
-                    System.out.println("Delivery Form");
-                    Object customer = customerInfo.customer();
-                    customerList.enqueue(String.valueOf(customer));
-                    System.out.println();
-
-                    reciept();
-
-                }
-
-                if(flag != false) {
-
-                    System.out.println("Do you want to order more?");
-                    String another = input.next();
     
-                    if(!another.equals("no") && !another.equals("yes")) {
-                        System.out.println();
-    
-                        do {
-    
-                            System.out.println("Please type \"yes\" if you want another order.\nAnd \"no\" if not.");
-                            another = input.next();
-                            
-                            if(another.equals("yes")) {
-                                Welcome();
-                                break;
-                            }
-    
-                            else if(another.equals("no")) {
-                                break;
-                            }
-    
-                        } while(!another.equals("yes") || !another.equals("no"));
-    
-                    }
-    
-                    else if(another.equals("no")) {
-                        System.out.println();
-                        System.out.println("Thank you for ordering from our delivery app.");
-                    }
-    
-                    else if(another.equals("yes")) {
-                        System.out.println();
-                        Welcome();
-                    }
-
-                }
-
+                } while(!order.equals("order"));
             }
-
-            else if(answer.equals("yes")) {
-
-                System.out.println("Here is the menu:");
-                System.out.println();
-                System.out.println("Pizza:");
-                System.out.println("------");
-                PizzaList.display(PizzaList_Price);
-                System.out.println();
-
-                if(DrinksIsEmpty()) {
-                    System.out.println("We ran out of drinks!");
-                } 
-
-                else if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
-
-                    System.out.println("Drinks:");
-                    System.out.println("------");
-                    DrinksList.display(DrinksList_Price);
-                    System.out.println();
-
-                }
+    
+    
+            if(flag == true) {
 
                 order();
 
@@ -257,46 +176,58 @@ public class PizzaDelivery extends Drink {
 
                 reciept();
 
+            }
+
+            if(flag != false) {
+
                 System.out.println("Do you want to order more?");
                 String another = input.next();
 
                 if(!another.equals("no") && !another.equals("yes")) {
+                    System.out.println();
 
                     do {
 
-                        System.out.println();
                         System.out.println("Please type \"yes\" if you want another order.\nAnd \"no\" if not.");
                         another = input.next();
                         
                         if(another.equals("yes")) {
-                            System.out.println();
+                            flag = true;
+                            anotherOrder = true;
                             Welcome();
                             break;
                         }
 
                         else if(another.equals("no")) {
+
+                            System.out.println();
+                            System.out.println("Thank you for ordering from our delivery app.");
                             break;
                         }
 
                     } while(!another.equals("yes") || !another.equals("no"));
 
-                    System.out.println();
                 }
 
                 else if(another.equals("no")) {
+                    System.out.println();
                     System.out.println("Thank you for ordering from our delivery app.");
                 }
 
                 else if(another.equals("yes")) {
+                    flag = true;
+                    anotherOrder = true;
                     System.out.println();
                     Welcome();
                 }
-
             }
+
         }
 
         else if(PizzaIsEmpty()) {
+
             System.out.println("Sorry! but we are closed for today");
+
         }
 
     }
