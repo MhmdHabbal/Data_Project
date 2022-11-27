@@ -5,11 +5,14 @@ public class CustomerList<T> {
     public Node<T> first;
     public int size;
 
-    private int i = 0, i_total = 0, j = 0;
+    private int i, i_total, j;
 
     CustomerList() {
         first = null;
         size = 0;
+        i = 0;
+        i_total = 0;
+        j = 0;
     }
 
     public boolean isEmpty() {
@@ -140,10 +143,10 @@ public class CustomerList<T> {
         return false;
     }
 
-    public void display(CustomerList<Double> drinks_Price) {
+    public void display(CustomerList<Double> priceList) {
 
         Node<T> current = first;
-        Node<Double> currentList = drinks_Price.first;
+        Node<Double> currentList = priceList.first;
 
         while(current != null) {
 

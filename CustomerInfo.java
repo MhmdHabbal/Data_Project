@@ -29,7 +29,7 @@ public class CustomerInfo {
 
     }
 
-    public Object customer() {
+    public Object Customer() {
 
         System.out.print("First Name: ");
         this.firstName = input.next();

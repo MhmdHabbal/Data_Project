@@ -12,9 +12,9 @@ public class PizzaDelivery extends Drink {
     static Node<String> drinksNode;
     static double Pizza_Price;
     static double Drinks_Price;
-    static boolean drinkOrder = false;
-    static boolean anotherOrder = false;
-    static boolean flag = false;
+    static boolean drinkOrder;
+    static boolean anotherOrder;
+    static boolean flag;
 
     static String[] arrayPizza = new String[8];
     static double[] arrayPizza_Price = new double[8];
@@ -32,6 +32,9 @@ public class PizzaDelivery extends Drink {
 
     PizzaDelivery() {
         super();
+        drinkOrder = false;
+        anotherOrder = false;
+        flag = false;
     }
 
     public void Menu() {
@@ -167,14 +170,14 @@ public class PizzaDelivery extends Drink {
     
             if(flag == true) {
 
-                order();
+                Order();
 
                 System.out.println("Delivery Form");
-                Object customer = customerInfo.customer();
+                Object customer = customerInfo.Customer();
                 customerList.enqueue(String.valueOf(customer));
                 System.out.println();
 
-                reciept();
+                Reciept();
 
             }
 
@@ -232,7 +235,7 @@ public class PizzaDelivery extends Drink {
 
     }
 
-    public void order() {
+    public void Order() {
 
         System.out.println("Enter the name of the pizza you'd like to order:");
         String pizzaName = input.next();
@@ -312,7 +315,7 @@ public class PizzaDelivery extends Drink {
         return Drink.count == 0;
     }
 
-    public void reciept() {
+    public void Reciept() {
 
         System.out.println("\nReciept:");
         System.out.println("------------------------------");
