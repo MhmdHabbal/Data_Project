@@ -16,7 +16,7 @@ public class CustomerInfo {
         lastName = " ";
         address = " ";
         phoneNb = 0;
-        orderNb = Math.random();
+        orderNb = Math.random() * 1000;
 
     }
 
@@ -26,10 +26,11 @@ public class CustomerInfo {
         this.lastName = lastName;
         this.address = address;
         this.phoneNb = phoneNb;
+        orderNb = Math.random() * 1000;
 
     }
 
-    public Object Customer() {
+    public Object customer() {
 
         System.out.print("First Name: ");
         this.firstName = input.next();
@@ -62,7 +63,7 @@ public class CustomerInfo {
         System.out.println("Name: " + firstName + " " + lastName);
         System.out.println("Adress: " + address);
         System.out.println("Phone Number: " + phoneNb);
-        System.out.println("Order Number: #" + orderNb);
+        System.out.println("Order Number: " + orderNb);
 
     }
 }

@@ -8,186 +8,191 @@ public class PizzaDelivery extends Drink {
     
     Scanner input = new Scanner(System.in);
 
-    static Node<String> pizzaNode;
-    static Node<String> drinksNode;
-    static double Pizza_Price;
-    static double Drinks_Price;
-    static boolean drinkOrder;
-    static boolean anotherOrder;
-    static boolean flag;
+    static Node pizzaNode;
+    static Node drinksNode;
+    boolean drinkOrder = false;
 
-    static String[] arrayPizza = new String[8];
-    static double[] arrayPizza_Price = new double[8];
-    static String[] arrayDrinks = new String[4];
-    static double[] arrayDrinks_Price = new double[4];
+    static LinkedList PizzaList = new LinkedList();
+    static LinkedList DrinksList = new LinkedList();
 
-    static CustomerList<String> PizzaList = new CustomerList<>();
-    static CustomerList<String> DrinksList = new CustomerList<>();
-
-    static CustomerList<Double> PizzaList_Price = new CustomerList<>();
-    static CustomerList<Double> DrinksList_Price = new CustomerList<>();
-
-    CustomerList<String> customerList = new CustomerList<>();
+    CustomerList customerList = new CustomerList();
     CustomerInfo customerInfo = new CustomerInfo();
 
     PizzaDelivery() {
         super();
-        drinkOrder = false;
-        anotherOrder = false;
-        flag = false;
     }
 
     public void Menu() {
         
-        Pizza p1 = new Pizza("Cheese");
-        Pizza p2 = new Pizza("Veggie");
-        Pizza p3 = new Pizza("Pepperoni");
-        Pizza p4 = new Pizza("Margherita");
-        Pizza p5 = new Pizza("Deluxe");
-        Pizza p6 = new Pizza("Hawaiian");
-        Pizza p7 = new Pizza("Buffalo");
-        Pizza p8 = new Pizza("Supreme");
+        Pizza p1 = new Pizza("Cheese Pizza", 15);
+        Pizza p2 = new Pizza("Veggie Pizza", 20);
+        Pizza p3 = new Pizza("Pepperoni Pizza", 25);
+        Pizza p4 = new Pizza("Margherita Pizza", 30);
+        Pizza p5 = new Pizza("BBQ Chicken Pizza", 35);
+        Pizza p6 = new Pizza("Hawaiian Pizza", 40);
+        Pizza p7 = new Pizza("Buffalo Pizza", 45);
+        Pizza p8 = new Pizza("Supreme Pizza", 50);
 
-        p1.setPrice(15);
-        p2.setPrice(20);
-        p3.setPrice(25);
-        p4.setPrice(30);
-        p5.setPrice(35);
-        p6.setPrice(40);
-        p7.setPrice(45);
-        p8.setPrice(50);
+        PizzaList.insertAtBack("->" + p1);
+        PizzaList.insertAtBack("-> " + p2);
+        PizzaList.insertAtBack("-> " + p3);
+        PizzaList.insertAtBack("-> " + p4);
+        PizzaList.insertAtBack("-> " + p5);
+        PizzaList.insertAtBack("-> " + p6);
+        PizzaList.insertAtBack("-> " + p7);
+        PizzaList.insertAtBack("-> " + p8);
 
-        arrayPizza[0] = p1.getPizzaType();
-        arrayPizza[1] = p2.getPizzaType();
-        arrayPizza[2] = p3.getPizzaType();
-        arrayPizza[3] = p4.getPizzaType();
-        arrayPizza[4] = p5.getPizzaType();
-        arrayPizza[5] = p6.getPizzaType();
-        arrayPizza[6] = p7.getPizzaType();
-        arrayPizza[7] = p8.getPizzaType();
+        Drink d1 = new Drink("Pepsi", 2);
+        Drink d2 = new Drink("Coca Cola", 2);
+        Drink d3 = new Drink("Mirinda" , 2);
+        Drink d4 = new Drink("7 Up", 2);
 
-        arrayPizza_Price[0] = p1.getPrice();
-        arrayPizza_Price[1] = p2.getPrice();
-        arrayPizza_Price[2] = p3.getPrice();
-        arrayPizza_Price[3] = p4.getPrice();
-        arrayPizza_Price[4] = p5.getPrice();
-        arrayPizza_Price[5] = p6.getPrice();
-        arrayPizza_Price[6] = p7.getPrice();
-        arrayPizza_Price[7] = p8.getPrice();
-
-        for(int i = 0; i < arrayPizza.length; i++) {
-            
-            PizzaList.insertAtBack(arrayPizza[i]);
-        }
-
-        for(int i = 0; i < arrayPizza_Price.length; i++) {
-
-            PizzaList_Price.insertAtBack(arrayPizza_Price[i]);
-        }
-
-        Drink d1 = new Drink("Pepsi");
-        Drink d2 = new Drink("Cola");
-        Drink d3 = new Drink("Mirinda");
-        Drink d4 = new Drink("7Up");
-
-        d1.setPrice(4);
-        d2.setPrice(4);
-        d3.setPrice(4);
-        d4.setPrice(4);
-
-        arrayDrinks[0] = d1.getDrinkType();
-        arrayDrinks[1] = d2.getDrinkType();
-        arrayDrinks[2] = d3.getDrinkType();
-        arrayDrinks[3] = d4.getDrinkType();
-
-        arrayDrinks_Price[0] = d1.getPrice();
-        arrayDrinks_Price[1] = d2.getPrice();
-        arrayDrinks_Price[2] = d3.getPrice();
-        arrayDrinks_Price[3] = d4.getPrice();
-
-        for(int i = 0; i < arrayDrinks.length; i++) {
-            
-            DrinksList.insertAtBack(arrayDrinks[i]);
-        }
-
-        for(int i = 0; i < arrayDrinks_Price.length; i++) {
-
-            DrinksList_Price.insertAtBack(arrayDrinks_Price[i]);
-        }
+        DrinksList.insertAtBack("-> " + d1);
+        DrinksList.insertAtBack("-> " + d2);
+        DrinksList.insertAtBack("-> " + d3);
+        DrinksList.insertAtBack("-> " + d4);
 
     }
 
     public void Welcome() {
 
         if(!PizzaIsEmpty()) {
+            System.out.println("Welcome to our pizza delivery app!");
+        }
 
-            if(!anotherOrder) {
-                System.out.println("Welcome to our pizza delivery app!\n");
+        if(!PizzaIsEmpty()) {
+
+            System.out.println("would you like to order now?");
+            String answer = input.next();
+        
+            boolean flag = false;
+
+            while(!answer.equals("yes") && !answer.equals("no")) {
+                System.out.println("Please type \"yes\" if you want to order now.\nAnd \"no\" if not.");
+                answer = input.next();
             }
 
-            System.out.println("Here is the menu:\n");
-            System.out.println("Pizza:");
-            System.out.println("------");
-            PizzaList.display(PizzaList_Price);
-            System.out.println();
+            if(answer.equals("no")) {
 
-            if(DrinksIsEmpty()) {
-                System.out.println("We ran out of drinks!\n");
-            } 
-
-            else if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
-
-                System.out.println("Drinks:");
+                System.out.println("Thank you for visiting our delivery app! Have a look on the menu.");
+                System.out.println();
+                System.out.println("Pizzas:");
                 System.out.println("------");
-                DrinksList.display(DrinksList_Price);
+                PizzaList.display();
                 System.out.println();
 
-            }
+                if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
 
-            String order;
+                    System.out.println("Drinks:");
+                    System.out.println("------");
+                    DrinksList.display();
+                    System.out.println();
 
-            if(!anotherOrder) {
+                }
+
+                String order;
 
                 do {
 
-                    System.out.println();
                     System.out.println("Whenever you are ready to order just type the word \"order\".\nAnd if you want to exit just type the word \"exit\".");
                     order = input.next();
-    
+
                     if(order.equals("order")) {
                         flag = true;
                         break;
                     }
-    
+
                     if(order.equals("exit")) {
                         flag = false;
                         break;
                     }
-    
-                } while(!order.equals("order"));
-            }
-    
-    
-            if(flag == true) {
 
-                Order();
+                } while(!answer.equals("yes"));
+
+
+
+                if(flag == true || order.equals("order")) {
+
+                    order();
+
+                    System.out.println("Delivery Form");
+                    Object customer = customerInfo.customer();
+                    customerList.enqueue(String.valueOf(customer));
+                    System.out.println();
+
+                    reciept();
+
+                }
+
+                if(flag != false) {
+
+                    System.out.println("Do you want to order more?");
+                    String another = input.next();
+    
+                    if(!another.equals("no") && !another.equals("yes")) {
+    
+                        do {
+    
+                            System.out.println("Please type \"yes\" if you want another order.\nAnd \"no\" if not.");
+                            another = input.next();
+                            
+                            if(another.equals("yes")) {
+                                Welcome();
+                                break;
+                            }
+    
+                            else if(another.equals("no")) {
+                                break;
+                            }
+    
+                        } while(!another.equals("yes") || !another.equals("no"));
+    
+                    }
+    
+                    else if(another.equals("no")) {
+                        System.out.println("Thank you for ordering from our delivery app.");
+                    }
+    
+                    else if(another.equals("yes")) {
+                        Welcome();
+                    }
+
+                }
+
+            }
+
+            else if(answer.equals("yes")) {
+
+                System.out.println("Here is the menu:");
+                System.out.println();
+
+                System.out.println("Pizzas:");
+                System.out.println("------");
+                PizzaList.display();
+                System.out.println();
+
+                if(!DrinksIsEmpty() && !PizzaIsEmpty()) {
+
+                    System.out.println("Drinks:");
+                    System.out.println("------");
+                    DrinksList.display();
+                    System.out.println();
+
+                }
+
+                order();
 
                 System.out.println("Delivery Form");
-                Object customer = customerInfo.Customer();
+                Object customer = customerInfo.customer();
                 customerList.enqueue(String.valueOf(customer));
                 System.out.println();
 
-                Reciept();
-
-            }
-
-            if(flag != false) {
+                reciept();
 
                 System.out.println("Do you want to order more?");
                 String another = input.next();
 
                 if(!another.equals("no") && !another.equals("yes")) {
-                    System.out.println();
 
                     do {
 
@@ -195,16 +200,11 @@ public class PizzaDelivery extends Drink {
                         another = input.next();
                         
                         if(another.equals("yes")) {
-                            flag = true;
-                            anotherOrder = true;
                             Welcome();
                             break;
                         }
 
                         else if(another.equals("no")) {
-
-                            System.out.println();
-                            System.out.println("Thank you for ordering from our delivery app.");
                             break;
                         }
 
@@ -213,48 +213,39 @@ public class PizzaDelivery extends Drink {
                 }
 
                 else if(another.equals("no")) {
-                    System.out.println();
                     System.out.println("Thank you for ordering from our delivery app.");
                 }
 
                 else if(another.equals("yes")) {
-                    flag = true;
-                    anotherOrder = true;
-                    System.out.println();
                     Welcome();
                 }
-            }
 
+            }
         }
 
         else if(PizzaIsEmpty()) {
-
-            System.out.println("Sorry! but we are closed for today");
-
+            System.out.println("Sorry, but we are closed for today");
         }
 
     }
 
-    public void Order() {
+    public void order() {
 
-        System.out.println("Enter the name of the pizza you'd like to order:");
-        String pizzaName = input.next();
+        System.out.println("Enter the number of the pizza you'd like to order:");
+        int pizzaNb = input.nextInt();
 
-        while(!PizzaList.search(pizzaName)) {
+        while(pizzaNb > PizzaList.getSize() || pizzaNb < 1) {
 
-            System.out.println();
-            System.out.println("Sorry! but we don't have this pizza right now,\nor you might have written somthing wrong.\nPlease enter another name:\n");
-            pizzaName = input.next();
+            System.out.println("The number you entered is not on the menu.\nPlease enter another number:");
+            pizzaNb = input.nextInt();
+
         }
 
-        System.out.println();
-
-        pizzaNode = PizzaList.removeSpecificNode(pizzaName);
-        Pizza_Price = PizzaList.removeSpecific_PriceNode(PizzaList_Price);
+        pizzaNode = PizzaList.removeSpecificNode(pizzaNb - 1);
         Pizza.count--;
 
         if(DrinksIsEmpty() && !PizzaIsEmpty()) {
-            drinkOrder = false;
+            System.out.println("Sorry, We have no drinks left");
             
         }
 
@@ -265,7 +256,6 @@ public class PizzaDelivery extends Drink {
 
             while(!answer.equals("yes") && !answer.equals("no")) {
 
-                System.out.println();
                 System.out.println("Please type \"yes\" if you want a drink.\nAnd \"no\" if not.");
                 answer = input.next();
 
@@ -273,22 +263,17 @@ public class PizzaDelivery extends Drink {
 
             if(answer.equals("yes")) {
 
-                System.out.println();
-                System.out.println("Enter the name of the drink you'd like to order:");
-                String drinkName = input.next();
+                System.out.println("Enter the number of the drink you'd like to order:");
+                int drinkNb = input.nextInt();
     
-                while(!DrinksList.search(drinkName)) {
+                while(drinkNb > DrinksList.getSize() || drinkNb < 1) {
     
-                    System.out.println();
-                    System.out.println("Sorry! but we don't have this drink right now,\nor you might have written somthing wrong.\nPlease enter another name:");
-                    drinkName = input.next();
+                    System.out.println("The number you entered is not on the menu.\nPlease enter another number:");
+                    drinkNb = input.nextInt();
     
                 }
-
-                System.out.println();
     
-                drinksNode = DrinksList.removeSpecificNode(drinkName);
-                Drinks_Price = DrinksList.removeSpecific_PriceNode(DrinksList_Price);
+                drinksNode = DrinksList.removeSpecificNode(drinkNb - 1);
                 Drink.count--;
                 drinkOrder = true;
     
@@ -297,7 +282,6 @@ public class PizzaDelivery extends Drink {
             else if(answer.equals("no")) {
     
                 drinkOrder = false;
-                System.out.println();
     
             }
 
@@ -315,26 +299,24 @@ public class PizzaDelivery extends Drink {
         return Drink.count == 0;
     }
 
-    public void Reciept() {
+    public void reciept() {
 
         System.out.println("\nReciept:");
         System.out.println("------------------------------");
         customerInfo.display();
         System.out.println();
 
-        System.out.println("Pizza detail: " + pizzaNode.data + "\nPrice: $" + Pizza_Price);
+        System.out.println("Pizza detail: " + pizzaNode.data);
 
         System.out.println();
 
         if(drinkOrder) {
-            System.out.println("Drink detail: " + drinksNode.data + "\nPrice: $" + Drinks_Price);
-            System.out.println();
-            System.out.println("Total Price: " + (Pizza_Price + Drinks_Price));
+            System.out.println("Drink detail: " + drinksNode.data);
         }
 
-        else if(!drinkOrder) {
-            System.out.println("Total Price: " + Pizza_Price);
-        }
+        if(DrinksIsEmpty()) {
+            System.out.println("We ran out of drinks");
+        } 
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();

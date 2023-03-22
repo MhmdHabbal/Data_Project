@@ -2,8 +2,8 @@ package Data_Project;
 
 public class Pizza {
 
-    private String pizzaType;
-    private double price;
+    String pizzaType;
+    double price;
     static int count;
 
     Pizza() {
@@ -11,15 +11,12 @@ public class Pizza {
         price = 0;
     }
 
-    Pizza(String pizzaType) {
+    Pizza(String pizzaType, double price) {
 
         this.pizzaType = pizzaType;
+        this.price = price;
         count++;
 
-    }
-
-    Pizza(double price) {
-        this.price = price;
     }
 
     public String getPizzaType() {
@@ -34,7 +31,7 @@ public class Pizza {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
